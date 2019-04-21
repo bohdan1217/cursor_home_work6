@@ -7,7 +7,6 @@ function printTimeout(str, n) {
     }
     let result = setTimeout(printStr, interval);
 }
-
 printTimeout('hello', 10);
 
 //task2
@@ -17,18 +16,19 @@ function sumAll(n) {
     for(i = 0; i <= n; i++){
         result += i;
     }
-    console.log(result);
+    return result;
 }
-sumAll(2); // 3
-sumAll(4); // 10
+console.log(sumAll(2)); // 3
+console.log(sumAll(4)); // 10
+
 
 //version2
-function sumAll(n) {
+function sumAllVersion2(n) {
     let result = (n * (n+1)) / 2;
-    console.log(result);
+    return result;
 }
-sumAll(2); // 3
-sumAll(4); // 10
+console.log(sumAllVersion2(2)); // 3
+console.log(sumAllVersion2(4)); // 10
 
 
 //task3
@@ -61,14 +61,17 @@ console.log(factorial(5)); // 120
 //task5
 //Implement function from task №3 (bombTimer) using recursion and setTimeout.
 function bombTimer5(str, time) {
-    setTimeout( function timer(){
-        if (time >= 1){
-            console.log(time--);
-            setTimeout(timer,1000);
-        } else {
-            console.log(str);
+    let timer = () => {
+        console.log(time);
+        if (time === 1) {
+            setTimeout(() => console.log(str), 1000);
+            clearTimeout(settingTimes);
         }
-    },0);
+        while (time > 1 ) {
+            return bombTimer(str, time - 1 );
+        }
+    }
+    let settingTimes = setTimeout(timer,1000);
 }
 bombTimer5('Boooom', 3);
 
@@ -96,19 +99,16 @@ console.log(minMax([1, 4, 8, 2, 20]));
 //task8
 //A function that returns average of numbers in array.
 function average(arr) {
-    var total = 0;
-    for(var i = 0; i < arr.length; i++) {
-        total += arr[i];
-    }
-    return total / arr.length;
+    let sum = 0;
+    arr.forEach(number => {
+        sum += number;
+    });
+    let arrAverage = sum / arr.length;
+    let result = arrAverage.toFixed(2);
+    return (result);
 }
 console.log(average([1,4,2])); // 2.33
 
-//version2
-function average2(arr) {
-    return arr.reduce((a,b) => a+b, 0)/arr.length;
-}
-console.log(average2([1,4,2]));
 
 //task9
 //A function which concats all first-nested arrays in one array (use reduce):
